@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Assets\_Source\GameManagers\LineDrawManager.cs" />
     <Compile Include="Assets\_Source\Statics\StaticStrings.cs" />
+    <Compile Include="Assets\_Source\Components\Pieces.cs" />
+    <Compile Include="Assets\_Source\Enumerators\ComponentType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

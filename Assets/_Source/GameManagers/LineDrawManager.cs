@@ -4,29 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LineControl
-{
-    private GameObject[] _line;
-
-    public GameObject[] Line { get => _line; set => _line = value; }
-
-    public LineControl()
-    {
-        Line = new GameObject[1];
-    }
-}
-
 public class LineDrawManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _dotPrefab;
-    private LineControl _currentLine;
+    private GameObject _currentLine;
     private LineRenderer _lineRenderer;
     private List<Vector2> _fingerPositions;
 
+    [SerializeField]
+    private Material _blueMaterial;
+
     private void Start()
     {
-        _currentLine = new LineControl();
         _fingerPositions = new List<Vector2>();
     }
 
@@ -53,8 +43,8 @@ public class LineDrawManager : MonoBehaviour
 
     void CreateLine()
     {
-        _currentLine.Line[0] = Instantiate(_dotPrefab, Vector3.zero, Quaternion.identity);
-        _lineRenderer = _currentLine.Line[0].GetComponent<LineRenderer>();
+        _currentLine = Instantiate(_dotPrefab, Vector3.zero, Quaternion.identity);
+        _lineRenderer = _currentLine.GetComponent<LineRenderer>();
         _fingerPositions.Clear();
         _fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         _lineRenderer.SetPosition(0, _fingerPositions[0]);
@@ -74,14 +64,20 @@ public class LineDrawManager : MonoBehaviour
 
         if (TestExtremityOfLine(hit))
         {
-            hit = Physics2D.Raycast(_fingerPositions[_fingerPositions.Count() - 1], Vector3.forward, 5f);
-            if (TestExtremityOfLine(hit))
+            if (hit.rigidbody.GetComponent<Pieces>().TryConnect())
             {
-                DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
+                hit = Physics2D.Raycast(_fingerPositions[_fingerPositions.Count() - 1], Vector3.forward, 5f);
+                if (TestExtremityOfLine(hit))
+                {
+                    if (hit.rigidbody.GetComponent<Pieces>().TryConnect())
+                    {
+                        DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
+                    }
+                }
             }
         }
 
-        Destroy(_currentLine.Line[0]);
+        Destroy(_currentLine);
     }
 
     bool TestExtremityOfLine(RaycastHit2D hit)
@@ -100,6 +96,7 @@ public class LineDrawManager : MonoBehaviour
     {
         var connectionLine = Instantiate(_dotPrefab, Vector3.zero, Quaternion.identity);
         _lineRenderer = connectionLine.GetComponent<LineRenderer>();
+        _lineRenderer.materials = new Material[] { _blueMaterial };
         _lineRenderer.SetPosition(0, startPoint);
         _lineRenderer.SetPosition(1, endPoint);
     }

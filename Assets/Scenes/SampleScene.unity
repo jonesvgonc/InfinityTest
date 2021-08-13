@@ -236,10 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dotPrefab: {fileID: 7580705550044661745, guid: 186bd57e10af0f74784bcf7cec35a741, type: 3}
-  _currentLine: {fileID: 0}
-  _lineRenderer: {fileID: 0}
-  _edgeCollider: {fileID: 0}
-  _fingerPositions: []
+  _blueMaterial: {fileID: 2100000, guid: 56bde630c70e4d34cbef514b2bf7ae71, type: 2}
 --- !u!4 &1093704016
 Transform:
   m_ObjectHideFlags: 0
@@ -318,6 +315,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3034163260798779310, guid: 980f41e8f4776894daa99e5e38d24cc0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3034163260798779310, guid: 980f41e8f4776894daa99e5e38d24cc0, type: 3}
+      propertyPath: _numberOfConnections
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6994622302075081233, guid: 980f41e8f4776894daa99e5e38d24cc0, type: 3}
       propertyPath: m_RootOrder
       value: 2
