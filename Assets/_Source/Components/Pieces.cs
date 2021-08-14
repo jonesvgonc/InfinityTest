@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Pieces : MonoBehaviour
 {
-    private bool _canConnect = true;
     [SerializeField]
     private int _numberOfConnections = 1;
-    private int _connectionsMade = 0;
     [SerializeField]
     private ComponentType _type;
+
+    private bool _canConnect = true;
+    private int _connectionsMade = 0;
+   
 
     public bool TryConnect()
     {
@@ -23,4 +25,6 @@ public class Pieces : MonoBehaviour
         }
         return false;
     }
+
+    
 }

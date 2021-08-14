@@ -5,7 +5,6 @@ using UnityEngine;
 public static class StaticStrings
 {
     private static string _powerSource = "PowerSource";
-
     private static string _machine = "Machine";
 
     public static string PowerSource { get => _powerSource; set => _powerSource = value; }

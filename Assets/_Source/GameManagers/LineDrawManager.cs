@@ -8,12 +8,12 @@ public class LineDrawManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _dotPrefab;
-    private GameObject _currentLine;
-    private LineRenderer _lineRenderer;
-    private List<Vector2> _fingerPositions;
-
     [SerializeField]
     private Material _blueMaterial;
+
+    private GameObject _currentLine;
+    private LineRenderer _lineRenderer;
+    private List<Vector2> _fingerPositions;    
 
     private void Start()
     {
@@ -58,6 +58,8 @@ public class LineDrawManager : MonoBehaviour
         _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, newFingerPos);
     }
 
+    
+
     void CalculateConnections()
     {        
         var hit = Physics2D.Raycast(_fingerPositions[0], Vector3.forward, 5f);
@@ -71,6 +73,9 @@ public class LineDrawManager : MonoBehaviour
                 {
                     if (hit.rigidbody.GetComponent<Pieces>().TryConnect())
                     {
+                        ParticleManager.Instance.SuccessConnection(_fingerPositions[0]);
+                        ParticleManager.Instance.SuccessConnection(_fingerPositions[_fingerPositions.Count() - 1]);
+
                         DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
                     }
                 }
@@ -97,6 +102,7 @@ public class LineDrawManager : MonoBehaviour
         var connectionLine = Instantiate(_dotPrefab, Vector3.zero, Quaternion.identity);
         _lineRenderer = connectionLine.GetComponent<LineRenderer>();
         _lineRenderer.materials = new Material[] { _blueMaterial };
+        _lineRenderer.sortingOrder = -100;
         _lineRenderer.SetPosition(0, startPoint);
         _lineRenderer.SetPosition(1, endPoint);
     }
