@@ -75,7 +75,7 @@ public class LineDrawManager : MonoBehaviour
                     {
                         ParticleManager.Instance.SuccessConnection(_fingerPositions[0]);
                         ParticleManager.Instance.SuccessConnection(_fingerPositions[_fingerPositions.Count() - 1]);
-
+                        GameDataManager.Instance.LevelConnectionsMade++;
                         DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
                     }
                 }
@@ -83,6 +83,11 @@ public class LineDrawManager : MonoBehaviour
         }
 
         Destroy(_currentLine);
+
+        if(GameDataManager.Instance.EndGame())
+        {
+            GameManager.Instance.LevelEnd();
+        }
     }
 
     bool TestExtremityOfLine(RaycastHit2D hit)
