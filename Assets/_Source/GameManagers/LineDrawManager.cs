@@ -63,7 +63,7 @@ public class LineDrawManager : MonoBehaviour
     void CalculateConnections()
     {        
         var hit = Physics2D.Raycast(_fingerPositions[0], Vector3.forward, 5f);
-
+        var connected = false;
         if (TestExtremityOfLine(hit))
         {
             var firstPiece = hit.rigidbody.GetComponent<Pieces>();
@@ -81,8 +81,8 @@ public class LineDrawManager : MonoBehaviour
                         AudioManager.Instance.PlayElletricSparks();
                         firstPiece.MakeConnection();
                         secondPiece.MakeConnection();
-                        GameDataManager.Instance.Score += 10;
-                        StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
+                        connected = true;
+                        GameDataManager.Instance.Score += 10;                        
                         DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
                         UIManager.Instance.ChangeScoreText(GameDataManager.Instance.Score);
                     }
@@ -95,6 +95,9 @@ public class LineDrawManager : MonoBehaviour
         if(GameDataManager.Instance.EndGame() && GameDataManager.Instance.GameStarted)
         {
             GameManager.Instance.LevelEnd();
+        }else if(connected)
+        {
+            StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
         }
     }
 
