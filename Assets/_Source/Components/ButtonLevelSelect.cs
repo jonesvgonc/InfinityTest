@@ -13,6 +13,7 @@ public class ButtonLevelSelect : MonoBehaviour
 
     public void StartLevel()
     {
+        AudioManager.Instance.PlayButtonClick();
         GameManager.Instance.StartInLevel(_levelId);
         SelectLevelViewModel.DestroyUI();
         UIManager.Instance.SetInGameUI();

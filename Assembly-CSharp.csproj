@@ -76,6 +76,7 @@
     <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\MainMenuViewModel.cs" />
     <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\SelectLevelViewModel.cs" />
     <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\InGameViewModel.cs" />
+    <Compile Include="Assets\_Source\GameManagers\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -25,12 +25,21 @@ public class UIManager : MonoBehaviour
 
     public void SetInGameUI()
     {
+        _inGameMenu.StartInGameUI();
+    }
 
+    public void LevelSuccess()
+    {
+        _inGameMenu.SuccessLevel();
     }
 
     public void SetSelectLevelMenu()
     {
         _selectLevel.StartSelectLevelMenu();
     }
-        
+
+    public void ChangeLevelText()
+    {
+        _inGameMenu.ChangeLevelText();
+    }
 }

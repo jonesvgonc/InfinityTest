@@ -13,7 +13,7 @@ public class LevelCreationManager : MonoBehaviour
     [SerializeField]
     private Transform _piecesParent;
 
-    public LevelManager LevelManager;   
+    public LevelManager LevelManager;
 
     public void Awake()
     {
@@ -22,8 +22,16 @@ public class LevelCreationManager : MonoBehaviour
 
     public void MountLevel()
     {
-        var level = LevelManager.LevelObjects.First(x=> x.LevelId == GameDataManager.Instance.ActualLevel);
-
+        var level = new GameLevel();
+        if (LevelManager.LevelObjects.Count() < GameDataManager.Instance.ActualLevel)
+        {
+            level = LevelManager.LevelObjects.First(x => x.LevelId == GameDataManager.Instance.ActualLevel);
+        }
+        else
+        {
+            GameDataManager.Instance.ActualLevel = 1;
+            level = LevelManager.LevelObjects.First(x => x.LevelId == GameDataManager.Instance.ActualLevel);
+        }
         GameDataManager.Instance.LevelConnections = 0;
         GameDataManager.Instance.LevelConnectionsMade = 0;
 
@@ -36,17 +44,18 @@ public class LevelCreationManager : MonoBehaviour
 
             Instantiate(prefab, position, Quaternion.identity, _piecesParent);
         }
+
+        GameDataManager.Instance.GameStarted = true;
+
     }
 
     public void DestroyLevel()
     {
         var childCount = _piecesParent.childCount;
 
-        for(var index = childCount -1; index > -1; index--)
+        for (var index = childCount - 1; index > -1; index--)
         {
             Destroy(_piecesParent.GetChild(index).gameObject);
         }
     }
-    
-
 }

@@ -17,6 +17,7 @@ public class MainMenuViewModel : MonoBehaviour
         _mainMenuModel.StartGameButton.onClick.AddListener(() => StartGame());
         _mainMenuModel.SelectLevelButton.onClick.AddListener(() => SelectLevel());
         _mainMenuModel.QuitGameButton.onClick.AddListener(() => QuitGame());
+        AudioManager.Instance.PlayMainMenuMusic();
     }
 
     public void DestroyMainMenu()
@@ -26,6 +27,7 @@ public class MainMenuViewModel : MonoBehaviour
 
     public void StartGame()
     {
+        AudioManager.Instance.PlayButtonClick();
         DestroyMainMenu();
         GameManager.Instance.StartGame();
         UIManager.Instance.SetInGameUI();
@@ -33,13 +35,14 @@ public class MainMenuViewModel : MonoBehaviour
 
     public void SelectLevel()
     {
+        AudioManager.Instance.PlayButtonClick();
         DestroyMainMenu();
         UIManager.Instance.SetSelectLevelMenu();
     }
 
     public void QuitGame()
     {
+        AudioManager.Instance.PlayButtonClick();
         Application.Quit();
     }
-
 }

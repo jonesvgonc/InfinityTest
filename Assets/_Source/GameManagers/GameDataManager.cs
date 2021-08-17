@@ -12,12 +12,14 @@ public class GameDataManager : MonoBehaviour
     private int _actualLevel = 1;
     private int _levelConnections = 0;
     private int _levelConnectionsMade = 0;
+    private bool _gameStarted = false;
 
     public float StartXPosition { get => _startXPosition; set => _startXPosition = value; }
     public float StartYPosition { get => _startYPosition; set => _startYPosition = value; }
     public int ActualLevel { get => _actualLevel; set => _actualLevel = value; }
     public int LevelConnections { get => _levelConnections; set => _levelConnections = value; }
     public int LevelConnectionsMade { get => _levelConnectionsMade; set => _levelConnectionsMade = value; }
+    public bool GameStarted { get => _gameStarted; set => _gameStarted = value; }
 
     public void Awake()
     {

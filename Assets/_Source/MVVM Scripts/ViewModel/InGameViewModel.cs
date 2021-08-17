@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InGameViewModel : MonoBehaviour
@@ -14,12 +13,13 @@ public class InGameViewModel : MonoBehaviour
         var gameObj = Instantiate(_inGameView);
         _inGameModel = gameObj.GetComponent<InGameModel>();
         EnableStartPanel();
-        _inGameModel.LevelText.text = GameDataManager.Instance.ActualLevel.ToString();        
+        _inGameModel.LevelText.text = GameDataManager.Instance.ActualLevel.ToString();
+        AudioManager.Instance.PlayInGameMusic();
     }
 
     public IEnumerator DisableStartPanel()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2f);
         _inGameModel.StartPanel.SetActive(false);
     }
 
@@ -27,6 +27,7 @@ public class InGameViewModel : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _inGameModel.SuccessPanel.SetActive(false);
+        EnableStartPanel();
     }
 
     public void EnableStartPanel()
@@ -38,7 +39,11 @@ public class InGameViewModel : MonoBehaviour
     public void SuccessLevel()
     {
         _inGameModel.SuccessPanel.SetActive(true);
-        StartCoroutine(DisableSuccessPanel());
-        EnableStartPanel();
+        StartCoroutine(DisableSuccessPanel());        
+    }
+
+    public void ChangeLevelText()
+    {
+        _inGameModel.LevelText.text = GameDataManager.Instance.ActualLevel.ToString();
     }
 }

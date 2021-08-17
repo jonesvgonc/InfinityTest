@@ -11,11 +11,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    public void Start()
-    {
-       
-    }
-
     public void StartGame()
     {
         if (LevelCreationManager.Instance.LevelManager.LevelObjects != null)
@@ -34,6 +29,8 @@ public class GameManager : MonoBehaviour
     {
         ParticleManager.Instance.EndLevelCommemoration();
         GameDataManager.Instance.ActualLevel++;
+        AudioManager.Instance.PlayCommemorations();
+        UIManager.Instance.LevelSuccess();
         StartCoroutine(NextGame());
     }
 
@@ -42,6 +39,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(7);
         LevelCreationManager.Instance.DestroyLevel();
         LevelCreationManager.Instance.MountLevel();
+        UIManager.Instance.ChangeLevelText();
     }
 
 }

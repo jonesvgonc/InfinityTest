@@ -58,9 +58,7 @@ public class LineDrawManager : MonoBehaviour
         _fingerPositions.Add(newFingerPos);
         _lineRenderer.positionCount++;
         _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, newFingerPos);
-    }
-
-    
+    }    
 
     void CalculateConnections()
     {        
@@ -80,6 +78,7 @@ public class LineDrawManager : MonoBehaviour
                         ParticleManager.Instance.SuccessConnection(_fingerPositions[0]);
                         ParticleManager.Instance.SuccessConnection(_fingerPositions[_fingerPositions.Count() - 1]);
                         GameDataManager.Instance.LevelConnectionsMade++;
+                        AudioManager.Instance.PlayElletricSparks();
                         firstPiece.MakeConnection();
                         secondPiece.MakeConnection();
                         DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
@@ -90,7 +89,7 @@ public class LineDrawManager : MonoBehaviour
 
         Destroy(_currentLine);
 
-        if(GameDataManager.Instance.EndGame())
+        if(GameDataManager.Instance.EndGame() && GameDataManager.Instance.GameStarted)
         {
             GameManager.Instance.LevelEnd();
         }
