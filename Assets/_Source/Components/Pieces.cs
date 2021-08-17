@@ -17,14 +17,15 @@ public class Pieces : MonoBehaviour
     {
         if(_canConnect)
         {
-            _connectionsMade++;
-            if (_numberOfConnections == _connectionsMade)
-                _canConnect = false;
-
             return true;
         }
         return false;
     }
 
-    
+    public void MakeConnection()
+    {
+        _connectionsMade++;
+        if (_numberOfConnections == _connectionsMade)
+            _canConnect = false;
+    }    
 }

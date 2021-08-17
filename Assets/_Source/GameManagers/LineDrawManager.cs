@@ -10,6 +10,8 @@ public class LineDrawManager : MonoBehaviour
     private GameObject _dotPrefab;
     [SerializeField]
     private Material _blueMaterial;
+    [SerializeField]
+    private Transform _piecesParent;
 
     private GameObject _currentLine;
     private LineRenderer _lineRenderer;
@@ -66,16 +68,20 @@ public class LineDrawManager : MonoBehaviour
 
         if (TestExtremityOfLine(hit))
         {
-            if (hit.rigidbody.GetComponent<Pieces>().TryConnect())
+            var firstPiece = hit.rigidbody.GetComponent<Pieces>();
+            if (firstPiece.TryConnect())
             {
                 hit = Physics2D.Raycast(_fingerPositions[_fingerPositions.Count() - 1], Vector3.forward, 5f);
                 if (TestExtremityOfLine(hit))
                 {
-                    if (hit.rigidbody.GetComponent<Pieces>().TryConnect())
+                    var secondPiece = hit.rigidbody.GetComponent<Pieces>();
+                    if (secondPiece.TryConnect())
                     {
                         ParticleManager.Instance.SuccessConnection(_fingerPositions[0]);
                         ParticleManager.Instance.SuccessConnection(_fingerPositions[_fingerPositions.Count() - 1]);
                         GameDataManager.Instance.LevelConnectionsMade++;
+                        firstPiece.MakeConnection();
+                        secondPiece.MakeConnection();
                         DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
                     }
                 }
@@ -104,7 +110,7 @@ public class LineDrawManager : MonoBehaviour
 
     private void DrawLine(Vector2 startPoint, Vector2 endPoint)
     {
-        var connectionLine = Instantiate(_dotPrefab, Vector3.zero, Quaternion.identity);
+        var connectionLine = Instantiate(_dotPrefab, Vector3.zero, Quaternion.identity, _piecesParent);
         _lineRenderer = connectionLine.GetComponent<LineRenderer>();
         _lineRenderer.materials = new Material[] { _blueMaterial };
         _lineRenderer.sortingOrder = -100;

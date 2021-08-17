@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Source\Editor\LevelManagerExtended.cs" />
+    <Compile Include="Assets\_Source\Editor\AutomaticUIAnchringEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

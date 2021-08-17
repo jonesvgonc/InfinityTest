@@ -12,3 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c87bcc5b96e43a44828541726255687, type: 3}
   m_Name: LevelController
   m_EditorClassIdentifier: 
+  result: 1
+  LevelObjects:
+  - LevelId: 1
+    LevelObjects: []
+  - LevelId: 2
+    LevelObjects: []
+  - LevelId: 3
+    LevelObjects: []
+  - LevelId: 4
+    LevelObjects: []
+  - LevelId: 5
+    LevelObjects: []
+  - LevelId: 6
+    LevelObjects: []
+  - LevelId: 7
+    LevelObjects: []
+  - LevelId: 8
+    LevelObjects: []
+  - LevelId: 9
+    LevelObjects: []
+  - LevelId: 10
+    LevelObjects: []

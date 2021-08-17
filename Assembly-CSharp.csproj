@@ -59,15 +59,23 @@
     <Compile Include="Assets\_Source\GameManagers\LineDrawManager.cs" />
     <Compile Include="Assets\_Source\Components\Pieces.cs" />
     <Compile Include="Assets\_Source\Enumerators\ComponentType.cs" />
+    <Compile Include="Assets\_Source\Components\LevelObjectPositions.cs" />
+    <Compile Include="Assets\_Source\GameManagers\LevelManager.cs" />
+    <Compile Include="Assets\_Source\Components\GameLevel.cs" />
+    <Compile Include="Assets\_Source\GameManagers\GameDataManager.cs" />
+    <Compile Include="Assets\_Source\GameManagers\LevelCreationManager.cs" />
     <Compile Include="Assets\_Source\Utils\DestroySelf.cs" />
     <Compile Include="Assets\_Source\GameManagers\ParticleManager.cs" />
     <Compile Include="Assets\_Source\Statics\StaticStrings.cs" />
-    <Compile Include="Assets\_Source\GameManagers\LevelCreationManager.cs" />
-    <Compile Include="Assets\_Source\GameManagers\GameDataManager.cs" />
-    <Compile Include="Assets\_Source\GameManagers\LevelManager.cs" />
-    <Compile Include="Assets\_Source\Components\GameLevel.cs" />
-    <Compile Include="Assets\_Source\Components\LevelObjectPositions.cs" />
+    <Compile Include="Assets\_Source\Components\ButtonLevelSelect.cs" />
     <Compile Include="Assets\_Source\GameManagers\GameManager.cs" />
+    <Compile Include="Assets\_Source\GameManagers\UIManager.cs" />
+    <Compile Include="Assets\_Source\MVVM Scripts\Model\MainMenuModel.cs" />
+    <Compile Include="Assets\_Source\MVVM Scripts\Model\SelectLevelModel.cs" />
+    <Compile Include="Assets\_Source\MVVM Scripts\Model\InGameModel.cs" />
+    <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\MainMenuViewModel.cs" />
+    <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\SelectLevelViewModel.cs" />
+    <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\InGameViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

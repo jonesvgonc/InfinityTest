@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class LevelCreationManager : MonoBehaviour
     [SerializeField]
     private GameObject _powerSourcePrefab;
     [SerializeField]
-    public LevelManager LevelManager;
+    private Transform _piecesParent;
 
-   
+    public LevelManager LevelManager;   
 
     public void Awake()
     {
@@ -21,7 +22,7 @@ public class LevelCreationManager : MonoBehaviour
 
     public void MountLevel()
     {
-        var level = LevelManager.LevelObjects[GameDataManager.Instance.ActualLevel];
+        var level = LevelManager.LevelObjects.First(x=> x.LevelId == GameDataManager.Instance.ActualLevel);
 
         GameDataManager.Instance.LevelConnections = 0;
         GameDataManager.Instance.LevelConnectionsMade = 0;
@@ -33,7 +34,17 @@ public class LevelCreationManager : MonoBehaviour
 
             GameDataManager.Instance.LevelConnections += piece.PrefabId == 0 ? 2 : 0;
 
-            Instantiate(prefab, position, Quaternion.identity);
+            Instantiate(prefab, position, Quaternion.identity, _piecesParent);
+        }
+    }
+
+    public void DestroyLevel()
+    {
+        var childCount = _piecesParent.childCount;
+
+        for(var index = childCount -1; index > -1; index--)
+        {
+            Destroy(_piecesParent.GetChild(index).gameObject);
         }
     }
     
