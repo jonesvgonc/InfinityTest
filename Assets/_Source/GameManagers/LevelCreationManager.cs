@@ -23,7 +23,7 @@ public class LevelCreationManager : MonoBehaviour
     public void MountLevel()
     {
         var level = new GameLevel();
-        if (LevelManager.LevelObjects.Count() < GameDataManager.Instance.ActualLevel)
+        if (LevelManager.LevelObjects.Count() > GameDataManager.Instance.ActualLevel)
         {
             level = LevelManager.LevelObjects.First(x => x.LevelId == GameDataManager.Instance.ActualLevel);
         }

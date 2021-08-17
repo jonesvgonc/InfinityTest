@@ -77,6 +77,8 @@
     <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\SelectLevelViewModel.cs" />
     <Compile Include="Assets\_Source\MVVM Scripts\ViewModel\InGameViewModel.cs" />
     <Compile Include="Assets\_Source\GameManagers\AudioManager.cs" />
+    <Compile Include="Assets\_Source\Components\PlayerStats.cs" />
+    <Compile Include="Assets\_Source\Utils\SaveLoadGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -11,6 +11,20 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    public void Start()
+    {
+        var playerData = SaveLoadGame.LoadGame();
+        if(playerData == null)
+        {
+            GameDataManager.Instance.PlayerStats = new PlayerStats() { ActualLevel = 1, LastLevelCompleted = 0 };
+            SaveLoadGame.SaveGame(GameDataManager.Instance.PlayerStats);
+        }else
+        {
+            GameDataManager.Instance.PlayerStats = playerData;
+            GameDataManager.Instance.ActualLevel = playerData.LastLevelCompleted++;
+        }
+    }
+
     public void StartGame()
     {
         if (LevelCreationManager.Instance.LevelManager.LevelObjects != null)
@@ -28,7 +42,14 @@ public class GameManager : MonoBehaviour
     public void LevelEnd()
     {
         ParticleManager.Instance.EndLevelCommemoration();
+
+        if (GameDataManager.Instance.ActualLevel > GameDataManager.Instance.PlayerStats.LastLevelCompleted)
+            GameDataManager.Instance.PlayerStats.LastLevelCompleted++;
+
         GameDataManager.Instance.ActualLevel++;
+        GameDataManager.Instance.PlayerStats.ActualLevel = GameDataManager.Instance.ActualLevel;
+        
+        SaveLoadGame.SaveGame(GameDataManager.Instance.PlayerStats);
         AudioManager.Instance.PlayCommemorations();
         UIManager.Instance.LevelSuccess();
         StartCoroutine(NextGame());
@@ -41,5 +62,4 @@ public class GameManager : MonoBehaviour
         LevelCreationManager.Instance.MountLevel();
         UIManager.Instance.ChangeLevelText();
     }
-
 }
