@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         SaveLoadGame.SaveGame(GameDataManager.Instance.PlayerStats);
         AudioManager.Instance.PlayCommemorations();
         UIManager.Instance.LevelSuccess();
+        StartCoroutine(CameraShake.Instance.Shake(1f, 0.2f));
         StartCoroutine(NextGame());
     }
 
