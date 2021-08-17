@@ -81,8 +81,10 @@ public class LineDrawManager : MonoBehaviour
                         AudioManager.Instance.PlayElletricSparks();
                         firstPiece.MakeConnection();
                         secondPiece.MakeConnection();
+                        GameDataManager.Instance.Score += 10;
                         StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
                         DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
+                        UIManager.Instance.ChangeScoreText(GameDataManager.Instance.Score);
                     }
                 }
             }

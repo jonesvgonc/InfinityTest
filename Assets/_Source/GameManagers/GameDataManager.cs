@@ -12,6 +12,7 @@ public class GameDataManager : MonoBehaviour
     private int _actualLevel = 1;
     private int _levelConnections = 0;
     private int _levelConnectionsMade = 0;
+    private int _score = 0;
     private bool _gameStarted = false;
     private PlayerStats _playerStats;
 
@@ -22,6 +23,7 @@ public class GameDataManager : MonoBehaviour
     public int LevelConnectionsMade { get => _levelConnectionsMade; set => _levelConnectionsMade = value; }
     public bool GameStarted { get => _gameStarted; set => _gameStarted = value; }
     public PlayerStats PlayerStats { get => _playerStats; set => _playerStats = value; }
+    public int Score { get => _score; set => _score = value; }
 
     public void Awake()
     {

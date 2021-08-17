@@ -8,4 +8,5 @@ public class PlayerStats
 {
     public int ActualLevel;
     public int LastLevelCompleted;
+    public int Score;
 }

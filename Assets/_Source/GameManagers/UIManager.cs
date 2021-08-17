@@ -42,4 +42,9 @@ public class UIManager : MonoBehaviour
     {
         _inGameMenu.ChangeLevelText();
     }
+
+    public void ChangeScoreText(int score)
+    {
+        _inGameMenu.ChangeScoreText(score);
+    }
 }

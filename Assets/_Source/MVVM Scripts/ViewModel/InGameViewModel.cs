@@ -42,6 +42,11 @@ public class InGameViewModel : MonoBehaviour
         StartCoroutine(DisableSuccessPanel());        
     }
 
+    public void ChangeScoreText(int score)
+    {
+        _inGameModel.ScoreText.text = score.ToString();
+    }
+
     public void ChangeLevelText()
     {
         _inGameModel.LevelText.text = GameDataManager.Instance.ActualLevel.ToString();

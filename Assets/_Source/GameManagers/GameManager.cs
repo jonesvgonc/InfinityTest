@@ -16,12 +16,13 @@ public class GameManager : MonoBehaviour
         var playerData = SaveLoadGame.LoadGame();
         if(playerData == null)
         {
-            GameDataManager.Instance.PlayerStats = new PlayerStats() { ActualLevel = 1, LastLevelCompleted = 0 };
+            GameDataManager.Instance.PlayerStats = new PlayerStats() { ActualLevel = 1, LastLevelCompleted = 0 , Score = 0 };
             SaveLoadGame.SaveGame(GameDataManager.Instance.PlayerStats);
         }else
         {
             GameDataManager.Instance.PlayerStats = playerData;
             GameDataManager.Instance.ActualLevel = playerData.LastLevelCompleted++;
+            GameDataManager.Instance.Score = playerData.Score;
         }
     }
 
@@ -48,9 +49,11 @@ public class GameManager : MonoBehaviour
 
         GameDataManager.Instance.ActualLevel++;
         GameDataManager.Instance.PlayerStats.ActualLevel = GameDataManager.Instance.ActualLevel;
-        
+        GameDataManager.Instance.Score += 100;
+        GameDataManager.Instance.PlayerStats.Score = GameDataManager.Instance.Score;
         SaveLoadGame.SaveGame(GameDataManager.Instance.PlayerStats);
         AudioManager.Instance.PlayCommemorations();
+        UIManager.Instance.ChangeScoreText(GameDataManager.Instance.Score);
         UIManager.Instance.LevelSuccess();
         StartCoroutine(CameraShake.Instance.Shake(1f, 0.2f));
         StartCoroutine(NextGame());
