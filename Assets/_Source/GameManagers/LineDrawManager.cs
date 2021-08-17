@@ -61,43 +61,47 @@ public class LineDrawManager : MonoBehaviour
     }    
 
     void CalculateConnections()
-    {        
-        var hit = Physics2D.Raycast(_fingerPositions[0], Vector3.forward, 5f);
-        var connected = false;
-        if (TestExtremityOfLine(hit))
+    {
+        if (GameDataManager.Instance.GameStarted)
         {
-            var firstPiece = hit.rigidbody.GetComponent<Pieces>();
-            if (firstPiece.TryConnect())
+            var hit = Physics2D.Raycast(_fingerPositions[0], Vector3.forward, 5f);
+            var connected = false;
+            if (TestExtremityOfLine(hit))
             {
-                hit = Physics2D.Raycast(_fingerPositions[_fingerPositions.Count() - 1], Vector3.forward, 5f);
-                if (TestExtremityOfLine(hit))
+                var firstPiece = hit.rigidbody.GetComponent<Pieces>();
+                if (firstPiece.TryConnect())
                 {
-                    var secondPiece = hit.rigidbody.GetComponent<Pieces>();
-                    if (secondPiece.TryConnect())
+                    hit = Physics2D.Raycast(_fingerPositions[_fingerPositions.Count() - 1], Vector3.forward, 5f);
+                    if (TestExtremityOfLine(hit))
                     {
-                        ParticleManager.Instance.SuccessConnection(_fingerPositions[0]);
-                        ParticleManager.Instance.SuccessConnection(_fingerPositions[_fingerPositions.Count() - 1]);
-                        GameDataManager.Instance.LevelConnectionsMade++;
-                        AudioManager.Instance.PlayElletricSparks();
-                        firstPiece.MakeConnection();
-                        secondPiece.MakeConnection();
-                        connected = true;
-                        GameDataManager.Instance.Score += 10;                        
-                        DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
-                        UIManager.Instance.ChangeScoreText(GameDataManager.Instance.Score);
+                        var secondPiece = hit.rigidbody.GetComponent<Pieces>();
+                        if (secondPiece.TryConnect())
+                        {
+                            ParticleManager.Instance.SuccessConnection(_fingerPositions[0]);
+                            ParticleManager.Instance.SuccessConnection(_fingerPositions[_fingerPositions.Count() - 1]);
+                            GameDataManager.Instance.LevelConnectionsMade++;
+                            AudioManager.Instance.PlayElletricSparks();
+                            firstPiece.MakeConnection();
+                            secondPiece.MakeConnection();
+                            connected = true;
+                            GameDataManager.Instance.Score += 10;
+                            DrawLine(_fingerPositions[0], _fingerPositions[_fingerPositions.Count() - 1]);
+                            UIManager.Instance.ChangeScoreText(GameDataManager.Instance.Score);
+                        }
                     }
                 }
             }
-        }
 
-        Destroy(_currentLine);
+            Destroy(_currentLine);
 
-        if(GameDataManager.Instance.EndGame() && GameDataManager.Instance.GameStarted)
-        {
-            GameManager.Instance.LevelEnd();
-        }else if(connected)
-        {
-            StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
+            if (GameDataManager.Instance.EndGame())
+            {
+                GameManager.Instance.LevelEnd();
+            }
+            else if (connected)
+            {
+                StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
+            }
         }
     }
 

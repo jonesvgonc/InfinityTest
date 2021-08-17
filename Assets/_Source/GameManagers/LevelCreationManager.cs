@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -45,8 +46,13 @@ public class LevelCreationManager : MonoBehaviour
             Instantiate(prefab, position, Quaternion.identity, _piecesParent);
         }
 
-        GameDataManager.Instance.GameStarted = true;
+        StartCoroutine(StartGame());
+    }
 
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(1);
+        GameDataManager.Instance.GameStarted = true;
     }
 
     public void DestroyLevel()

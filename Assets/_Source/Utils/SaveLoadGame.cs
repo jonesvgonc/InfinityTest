@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class SaveLoadGame 
 {
-    private static string _fullpath = Application.dataPath + "//..//Saves//powerEnergy.json";
-    private static string _folder = Application.dataPath + "//..//Saves//";
+    private static string _fullpath = Application.persistentDataPath + "//Saves//powerEnergy.json";
+    private static string _folder = Application.persistentDataPath + "//Saves//";
 
     public static void SaveGame(PlayerStats data)
     {
